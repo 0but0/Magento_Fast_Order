@@ -1,0 +1,40 @@
+& when (@media-common = true) {
+    //
+    //  Css style search form
+    //  ---------------------------------------------
+    .search {
+        max-width: 500px;
+        &_form {
+            display: flex;
+            height: 38px;
+            border: 1px solid @search_border;
+            border-radius: 40px;
+            overflow: hidden;
+            &_input {
+                width: 100%;
+                input {
+                    border: none;
+                    height: 38px;
+                    padding-left: 25px;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+            }
+            &_button {
+                button {
+                    background-color: @button_color;
+                    border: none;
+                    height: 38px;
+                    padding-right: 25px;
+                    color: @search_border;
+                }
+            }
+        }
+        &_result {
+            padding-left: 25px;
+            padding-right: 25px;
+            border: 1px solid @search_border;
+        }
+    }
+}
