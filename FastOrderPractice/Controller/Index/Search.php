@@ -80,13 +80,16 @@ class Search extends \Magento\Framework\App\Action\Action
                     array('attribute' => 'sku', 'like' => '%' . $search_keyword . '%')
                 )
             )
-            ->setPageSize(5)
+            ->setPageSize(10)
             ->setCurPage(1);
-
         foreach ($products as $product) {
             $product['src'] = $this->imageHelper
                 ->init($product, 'product_base_image')
                 ->getUrl();
+        }
+
+        if ($search_keyword == null) {
+            return false;
         }
 
         return [

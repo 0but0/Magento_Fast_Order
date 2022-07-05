@@ -13,16 +13,16 @@ define([
         self.sku = ko.observable(item.sku);
         self.src = ko.observable(item.src);
         self.name = ko.observable(item.name);
-        self.price = ko.observable(item.price);
+        self.price = ko.observable(parseFloat(item.price).toFixed(2));
         self.getId = item.entity_id;
         self.qty = ko.observable(1);
         self.total_price = ko.computed(function() {
             if (self.qty() > 0) {
-                return self.qty() * self.price();
+                return parseFloat(self.qty() * self.price()).toFixed(2);
             } else {
                 alert("Sorry, the quantity should be 1 minimun");
                 self.qty(1);
-                return self.qty() * self.price();
+                return parseFloat(self.qty() * self.price()).toFixed(2);
             }
         });
         self.qtyDown = function() {
@@ -41,6 +41,17 @@ define([
         self.search_result = ko.observableArray([]);
         self.product_table_list = ko.observableArray([]);
         self.currency = ko.observable();
+        self.search_focused = ko.observable(false);
+        self.result_focused = ko.observable(false);
+        self.result_appear = ko.observable(true);
+        self.result_appear_click = ko.computed(function() {
+            if (self.search_focused()) {
+                self.result_appear(true);
+            } else {
+                self.result_appear(self.result_focused());
+            }
+        });
+
 
         self.getKeyWord = function() {
             var self = this;
@@ -112,7 +123,7 @@ define([
             ko.utils.arrayFilter(self.product_table_list(), function(data) {
                 countPrice = countPrice + data.total_price();
             });
-            return countPrice;
+            return parseFloat(countPrice).toFixed(2);
         });
 
         self.deleteProduct = function(item) {
