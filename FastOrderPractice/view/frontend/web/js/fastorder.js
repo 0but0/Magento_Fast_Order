@@ -113,15 +113,15 @@ define([
         self.countProduct = ko.computed(function() {
             var countProduct = 0;
             ko.utils.arrayFilter(self.product_table_list(), function(data) {
-                countProduct = countProduct + data.qty();
+                countProduct = parseInt(countProduct) + parseInt(data.qty());
             });
-            return countProduct;
+            return parseInt(countProduct);
         });
 
         self.countPrice = ko.computed(function() {
             var countPrice = 0;
             ko.utils.arrayFilter(self.product_table_list(), function(data) {
-                countPrice = countPrice + data.total_price();
+                countPrice = parseFloat(countPrice) + parseFloat(data.total_price());
             });
             return parseFloat(countPrice).toFixed(2);
         });
